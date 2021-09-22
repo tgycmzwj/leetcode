@@ -3,6 +3,7 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
+
 from typing import Optional
 from typing import List
 class TreeNode:
@@ -40,7 +41,7 @@ def build_tree(s):
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
-            return []
+            return 0
         results=[]
         processing=[[root]]
         while len(processing)!=0:
@@ -56,12 +57,11 @@ class Solution:
             results.append(results_to_be_append)
             if len(processing_to_be_append)!=0:
                 processing.append(processing_to_be_append)
-        return results
+        return len(results)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    root = build_tree([3,9,20,None,None,15,7])
+    root = build_tree([])
     solution=Solution()
     print(solution.levelOrder(root))
-
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

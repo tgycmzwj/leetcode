@@ -36,13 +36,13 @@ def build_tree(s):
             ongoing_list.append(right_node)
     return root
 
-
 class Solution:
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
         results=[]
         processing=[[root]]
+        i=1
         while len(processing)!=0:
             items=processing.pop(0)
             processing_to_be_append=[]
@@ -53,15 +53,18 @@ class Solution:
                     processing_to_be_append.append(item.left)
                 if item.right:
                     processing_to_be_append.append(item.right)
+            if i%2==0:
+                results_to_be_append.reverse()
             results.append(results_to_be_append)
             if len(processing_to_be_append)!=0:
                 processing.append(processing_to_be_append)
+            i=i+1
         return results
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     root = build_tree([3,9,20,None,None,15,7])
     solution=Solution()
-    print(solution.levelOrder(root))
+    print(solution.zigzagLevelOrder(root))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
