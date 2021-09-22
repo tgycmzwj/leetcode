@@ -4,6 +4,8 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
+
+
 from typing import Optional
 from typing import List
 class TreeNode:
@@ -38,19 +40,19 @@ def build_tree(s):
     return root
 
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if len(preorder)==0:
+    def buildTree(self, inorder: List[int],postorder: List[int]) -> Optional[TreeNode]:
+        if len(inorder)==0:
             return None
-        tree_root_value=preorder[0]
+        tree_root_value=postorder[-1]
         root=TreeNode(tree_root_value)
         root_num_in_inorder=inorder.index(tree_root_value)
 
         inorder_left=inorder[:root_num_in_inorder]
         inorder_right=inorder[root_num_in_inorder+1:]
-        preorder_left=preorder[1:1+root_num_in_inorder]
-        preorder_right=preorder[1+root_num_in_inorder:]
-        root.left=self.buildTree(preorder_left,inorder_left)
-        root.right=self.buildTree(preorder_right,inorder_right)
+        postorder_left=postorder[:root_num_in_inorder]
+        postorder_right=postorder[root_num_in_inorder:len(postorder)-1]
+        root.left=self.buildTree(inorder_left,postorder_left)
+        root.right=self.buildTree(inorder_right,postorder_right)
         return root
 
 
@@ -58,9 +60,9 @@ class Solution:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    preorder = [3,9,20,15,7]
     inorder = [9,3,15,20,7]
+    postorder = [9,15,7,20,3]
     solution=Solution()
-    print(solution.buildTree(preorder,inorder))
+    print(solution.buildTree(inorder,postorder))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

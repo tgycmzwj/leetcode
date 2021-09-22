@@ -37,30 +37,31 @@ def build_tree(s):
             ongoing_list.append(right_node)
     return root
 
+
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if len(preorder)==0:
-            return None
-        tree_root_value=preorder[0]
-        root=TreeNode(tree_root_value)
-        root_num_in_inorder=inorder.index(tree_root_value)
-
-        inorder_left=inorder[:root_num_in_inorder]
-        inorder_right=inorder[root_num_in_inorder+1:]
-        preorder_left=preorder[1:1+root_num_in_inorder]
-        preorder_right=preorder[1+root_num_in_inorder:]
-        root.left=self.buildTree(preorder_left,inorder_left)
-        root.right=self.buildTree(preorder_right,inorder_right)
-        return root
-
-
-
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        results=[]
+        processing=[[root]]
+        while len(processing)!=0:
+            items=processing.pop(0)
+            processing_to_be_append=[]
+            results_to_be_append=[]
+            for item in items:
+                results_to_be_append.append(item.val)
+                if item.left:
+                    processing_to_be_append.append(item.left)
+                if item.right:
+                    processing_to_be_append.append(item.right)
+            results.append(results_to_be_append)
+            if len(processing_to_be_append)!=0:
+                processing.append(processing_to_be_append)
+        results.reverse()
+        return results
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    preorder = [3,9,20,15,7]
-    inorder = [9,3,15,20,7]
+    root = build_tree([3,9,20,None,None,15,7])
     solution=Solution()
-    print(solution.buildTree(preorder,inorder))
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(solution.levelOrder(root))
