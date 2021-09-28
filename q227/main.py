@@ -4,72 +4,53 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-from collections import deque
+class Solution:
+    def calculate(self, s: str) -> int:
+        s=s.replace(' ','')
+        if len(s)==0:
+            return 0
+        delimiter=[]
+        for i in s:
+            if i.isdigit()==False:
+                delimiter.append(i)
+        s=s.replace('-','+')
+        s=s.replace('*','+')
+        s=s.replace('/','+')
+        s=s.split('+')
+        new_s=[]
+        for i in range(len(delimiter)):
+            new_s.append(s[i])
+            new_s.append(delimiter[i])
+        new_s.append(s[-1])
+        s=new_s
+        results=0
+        stack=[]
+        while len(s)!=0:
+            cur_ele=s.pop(0)
+            if cur_ele=='*':
+                temp=stack.pop(-1)
+                stack.append(int(temp)*int(s.pop(0)))
+            elif cur_ele=='/':
+                temp=stack.pop(-1)
+                stack.append(int(int(temp)/int(s.pop(0))))
+            else:
+                stack.append(cur_ele)
+        results=float(stack[0])
+        for i in range(2,len(stack),2):
+            if stack[i-1]=='+':
+                results=results+int(stack[i])
+            else:
+                results=results-int(stack[i])
+        return int(results)
 
 
-class MyStack:
-
-    def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-
-        # python natively support double-ended queue
-        self.queue = deque()
-
-    def push(self, x: int) -> None:
-        """
-        Push element x onto stack.
-        """
-
-        # push new element into queue's tail
-        self.queue.append(x)
-
-        # make new element on the head position by rotation
-        for _ in range(len(self.queue) - 1):
-            self.queue.append(self.queue.popleft())
-
-    def pop(self) -> int:
-        """
-        Removes the element on top of the stack and returns that element.
-        """
-
-        # pop head element of queue
-        return self.queue.popleft()
-
-    def top(self) -> int:
-        """
-        Get the top element.
-        """
-
-        # return head element of queue
-        return self.queue[0]
-
-    def empty(self) -> bool:
-        """
-        Returns whether the stack is empty.
-        """
-
-        return (not self.queue)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    cmds_cont=["MyStack", "push", "push", "top", "pop", "empty"]
-    cmds_value=[[], [1], [2], [], [], []]
-    results=[]
-    for i in range(len(cmds_cont)):
-        cmd_cont,cmd_value=cmds_cont[i],cmds_value[i]
-        if cmd_cont=='MyStack':
-            obj=MyStack()
-            results.append(None)
-        elif cmd_cont=='push':
-            results.append(obj.push(cmd_value[0]))
-        elif cmd_cont=='top':
-            results.append(obj.top())
-        elif cmd_cont=='pop':
-            results.append(obj.pop())
-        elif cmd_cont=='empty':
-            results.append(obj.empty())
-    print(results)
+    s = " 3+5 / 2 "
+    s = "3+2*2"
+    #s = " 32/2 "
+    solution=Solution()
+    print(solution.calculate(s))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
