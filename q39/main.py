@@ -23,6 +23,8 @@ if __name__ == '__main__':
     solution=Solution()
     candidates = [1]
     target = 1
+    candidates = [2, 3, 6, 7]
+    target = 7
     print(solution.combinationSum(candidates,target))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

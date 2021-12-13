@@ -4,27 +4,27 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 from typing import List
 class Solution:
-    def binary_combine(self,number_list: List[str],str)->List[str]:
-        if str=='':
-            return number_list
-        if len(number_list)==0:
-            number_list.append(str)
-            return number_list
-        else:
-            new_number_list=[]
-            original_length=len(number_list[0])
-            for digits in number_list:
-                for i in range(original_length+1):
-                    digits_copy=digits.copy()
-                    digits_copy.insert(i,str)
-                    new_number_list.append(digits_copy)
-        return new_number_list
+    # def binary_combine(self,number_list: List[str],str)->List[str]:
+    #     if str=='':
+    #         return number_list
+    #     if len(number_list)==0:
+    #         number_list.append(str)
+    #         return number_list
+    #     else:
+    #         new_number_list=[]
+    #         original_length=len(number_list[0])
+    #         for digits in number_list:
+    #             for i in range(original_length+1):
+    #                 digits_copy=digits.copy()
+    #                 digits_copy.insert(i,str)
+    #                 new_number_list.append(digits_copy)
+    #     return new_number_list
 
-    def combine(self,str_to_list):
-        results=[[str_to_list[0]]]
-        for i in range(1,len(str_to_list)):
-            results=self.binary_combine(results,str_to_list[i])
-        return results
+    # def combine(self,str_to_list):
+    #     results=[[str_to_list[0]]]
+    #     for i in range(1,len(str_to_list)):
+    #         results=self.binary_combine(results,str_to_list[i])
+    #     return results
 
     def cartesian(self,compount_list: List[List[str]])->List[str]:
         if len(compount_list)==0:

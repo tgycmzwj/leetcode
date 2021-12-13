@@ -38,7 +38,7 @@ class Solution:
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
-    word = "ABCB"
+    word = "CBCB"
     solution=Solution()
     print(solution.exist(board,word))
 

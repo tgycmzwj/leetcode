@@ -57,7 +57,7 @@ class Solution:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    root = build_tree([4,9,0,None,1])
+    root = build_tree([4,9,0,5,1])
     solution=Solution()
     print(solution.sumNumbers(root))
 
