@@ -4,13 +4,22 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Solution:
+    def isStrobogrammatic(self, num: str) -> bool:
+        dic_strobo={'0':'0','1':'1','2':'000','3':'000','4':'000',
+                    '5':'000','6':'9','7':'000','8':'8','9':'6'}
+        results=''
+        for i in num:
+            results=dic_strobo[i]+results
+        return results==num
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    num = "69"
+    num = "88"
+    num="962"
+    solution=Solution()
+    print(solution.isStrobogrammatic(num))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
