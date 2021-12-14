@@ -2,6 +2,7 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+
 from typing import Optional
 from typing import List
 class TreeNode:
@@ -35,39 +36,24 @@ def build_tree(s):
             ongoing_list.append(right_node)
     return root
 
-
 class Solution:
-    def closestValue(self, root: Optional[TreeNode], target: float) -> int:
-        cur_min=2e9
-        cur_val = root.val
-        while root.left or root.right:
-            if abs(root.val-target)<cur_min:
-                cur_min=abs(root.val-target)
-                cur_val=root.val
-            if target==root.val:
-                break
-            elif target>root.val:
-                if root.right:
-                    root=root.right
-                else:
-                    break
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'Optional[TreeNode]':
+        cur=root
+        cand=None
+        while cur:
+            if cur.val>p.val:
+                cand=cur
+                cur=cur.left
             else:
-                if root.left:
-                    root=root.left
-                else:
-                    break
-        if abs(root.val - target) < cur_min:
-            cur_min = abs(root.val - target)
-            cur_val = root.val
-        return cur_val
-
-
+                cur=cur.right
+        return cand
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    root = build_tree([3.2,2,5,1,3,4.1])
-    target = 3.714286
+    root = [5,3,6,2,4,None,None,1]
+    p = 6
+    root=build_tree(root)
     solution=Solution()
-    print(solution.closestValue(root,target))
+    print(solution.inorderSuccessor(root,p))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
