@@ -37,10 +37,32 @@ def build_tree(s):
 
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        processing=[[root]]
+        results=[]
+        while len(processing)>0:
+            cur_level=processing.pop(0)
+            next_level=[]
+            val=-1e15
+            for sub in cur_level:
+                val=max(val,sub.val)
+                if sub.left:
+                    next_level.append(sub.left)
+                if sub.right:
+                    next_level.append(sub.right)
+            results.append(val)
+            if len(next_level)>0:
+                processing.append(next_level.copy())
+        return results
+
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    root = [1,3,2,5,3,None,9]
+    root=build_tree(root)
+    solution=Solution()
+    print(solution.largestValues(root))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
