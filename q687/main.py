@@ -2,6 +2,7 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+
 from typing import Optional
 from typing import List
 class TreeNode:
@@ -35,30 +36,37 @@ def build_tree(s):
             ongoing_list.append(right_node)
     return root
 
-from collections import defaultdict
+class TreeNode_cust(TreeNode):
+    def __init__(self,root):
+        super(TreeNode_cust, self).__init__()
+        self.val=root.val
+        if root.left:self.left=TreeNode_cust(root.left)
+        if root.right:self.right=TreeNode_cust(root.right)
+        self.left_depth=0
+        self.right_depth=0
+        self.left_values=set()
+        self.right_values=set()
+
+
 class Solution:
-    def preorder(self,node):
-        if node is None:
-            return '#'
-        L = self.preorder(node.left)
-        R = self.preorder(node.right)
-        this = ','.join((str(node.val), L, R))
-        self.serialisationCount[this] += 1
-        self.serialisationNode[this] = node
-        return this
-    def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
-        # preorder traversal serialisation map to node + count
-        self.serialisationCount = defaultdict(int)
-        self.serialisationNode = {}
-        self.preorder(root)
-        return [self.serialisationNode[serialisation] for serialisation in self.serialisationCount if
-                self.serialisationCount[serialisation] >= 2]
+    def dfs(self, root):
+        """Return longest overall and longest ending at root."""
+        if not root:
+            return 0, 0
+        l1, l2 = self.dfs(root.left)
+        r1, r2 = self.dfs(root.right)
+        l2 = 1 + l2 if root.left and root.left.val == root.val else 0
+        r2 = 1 + r2 if root.right and root.right.val == root.val else 0
+        return max(l1, r1, l2 + r2), max(l2, r2)
+    def longestUnivaluePath(self, root):
+        return self.dfs(root)[0]
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    root = [1,2,3,4,None,2,4,None,None,4]
+    root = [5,4,5,1,1,5]
+    root = [1, 4, 5, 4, 4, 5]
     root=build_tree(root)
     solution=Solution()
-    print(solution.findDuplicateSubtrees(root))
+    print(solution.longestUnivaluePath(root))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
